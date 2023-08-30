@@ -1,0 +1,325 @@
+@font-face {
+  font-family: "urw_din_arabic_condmedium";
+  src: url("../fonts/urw_din_arabic_cond_medium-webfont.woff2") format("woff2"),
+    url("../fonts/urw_din_arabic_cond_medium-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+$sideboard-color: #28246e;
+$header-color: #140e42;
+$main-color: $sideboard-color;
+
+$primary-sideboard-btn-color: #252752;
+$primary-sideboard-text-color: #d3d5e9;
+$primary-sideboard-icon-color: invert(91%) sepia(5%) saturate(812%)
+  hue-rotate(198deg) brightness(95%) contrast(91%);
+
+$secondary-sideboard-btn-color: #1a0c3d;
+$secondary-sideboard-text-color: #41ead1;
+$secondary-sideboard-icon-color: invert(72%) sepia(44%) saturate(580%)
+  hue-rotate(119deg) brightness(102%) contrast(92%);
+
+$tertiary-sideboard-btn-color: #7e43f2;
+$tertiary-sideboard-text-color: #3ae9d4;
+$tertiary-sideboard-icon-color: invert(77%) sepia(59%) saturate(498%)
+  hue-rotate(113deg) brightness(94%) contrast(94%);
+
+$primary-input-color: $primary-sideboard-btn-color;
+$primary-header-text-color: $primary-sideboard-text-color;
+$primary-header-icon-color: $primary-sideboard-icon-color;
+
+$secondary-input-color: $tertiary-sideboard-text-color;
+$secondary-header-text-color: #04231c;
+$secondary-header-icon-color: $tertiary-sideboard-icon-color;
+
+$btn-border-color: $tertiary-sideboard-text-color;
+
+$primary-btn-color: $primary-sideboard-btn-color;
+$primary-btn-text-color: $primary-sideboard-text-color;
+
+@mixin regular-card {
+  background-color: $secondary-sideboard-btn-color;
+  color: $secondary-sideboard-text-color;
+
+  .icon {
+    filter: $secondary-sideboard-icon-color;
+  }
+}
+
+@mixin hover-effect {
+  background-color: $tertiary-sideboard-btn-color;
+  color: $tertiary-sideboard-text-color;
+
+  .icon {
+    filter: $tertiary-sideboard-icon-color;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 22px;
+}
+
+ul,
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+h1,
+li,
+.header,
+.main-content {
+  padding: 10px;
+}
+
+h1,
+h2 {
+  color: #fafcfb;
+}
+
+h1 {
+  font-style: italic;
+  text-transform: uppercase;
+  padding-bottom: 0;
+}
+
+body {
+  margin: 0;
+  font-family: "urw_din_arabic_condmedium";
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 6fr;
+  height: 100%;
+
+  > div {
+    border: 1px solid $secondary-header-text-color;
+  }
+}
+
+hr {
+  border-color: $btn-border-color;
+}
+
+.icon {
+  width: 1.25em;
+  height: 1.25em;
+  vertical-align: -0.25em;
+}
+
+.card {
+  @include regular-card;
+  border: 1px solid $btn-border-color;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  @include hover-effect;
+}
+
+.sidebar {
+  background-color: $sideboard-color;
+  color: $primary-sideboard-text-color;
+  grid-row: 1 / 3;
+
+  .sidebar-content {
+    display: grid;
+    align-content: start;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+
+    li {
+      display: grid;
+      grid-template-columns: min-content auto;
+      color: inherit;
+      text-decoration: none;
+      gap: 20px;
+      background-color: $primary-sideboard-btn-color;
+      cursor: pointer;
+
+      .icon {
+        filter: $primary-sideboard-icon-color;
+      }
+    }
+
+    .selected {
+      @include regular-card;
+    }
+
+    li:hover {
+      @include hover-effect;
+    }
+  }
+}
+
+.header {
+  background-color: #f2f2f2;
+  grid-column: 2 / 3;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $header-color;
+  color: $primary-header-text-color;
+  gap: 20px;
+
+  .icon {
+    filter: $primary-header-icon-color;
+  }
+
+  .search {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+
+    input,
+    label,
+    .icon {
+      display: block;
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      font-family: inherit;
+      font-size: 1rem;
+      padding-left: 0.5rem;
+      background-color: $primary-input-color;
+      color: inherit;
+      flex: 1;
+      border: none;
+      outline: none;
+    }
+
+    ::placeholder {
+      color: lighten($primary-input-color, 50%);
+    }
+
+    input:focus {
+      outline: none;
+      background-color: $secondary-input-color;
+      color: $secondary-header-text-color;
+
+      + label .icon {
+        filter: $secondary-header-icon-color;
+      }
+    }
+
+    input:focus::placeholder {
+      color: darken($secondary-input-color, 30%);
+    }
+  }
+
+  .notifications {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+    * {
+      display: block;
+      cursor: pointer;
+    }
+
+    *:hover {
+      color: $secondary-input-color;
+    }
+
+    .icon:hover {
+      filter: $secondary-header-icon-color;
+    }
+  }
+
+  .welcome {
+    .large-font {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+
+    button {
+      font-family: inherit;
+      font-size: 1rem;
+      padding: 10px;
+      outline: none;
+      border: 1px solid $btn-border-color;
+      background-color: $primary-btn-color;
+      color: $primary-btn-text-color;
+      flex: 1;
+      cursor: pointer;
+    }
+
+    button:hover {
+      @include hover-effect;
+    }
+  }
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: 10px;
+  background-color: $main-color;
+
+  .course-section {
+    display: grid;
+    grid-template-rows: min-content auto;
+    height: 100%;
+
+    .course-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+
+      .card {
+        cursor: pointer;
+      }
+
+      .course-info {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+
+        p {
+          flex: 1;
+        }
+
+        .course-actions {
+          align-self: flex-end;
+
+          .icon:hover {
+            filter: invert(10%) sepia(19%) saturate(7448%) hue-rotate(244deg)
+              brightness(73%) contrast(105%);
+          }
+        }
+      }
+    }
+  }
+
+  .main-content-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h3 {
+      cursor: pointer;
+    }
+  }
+}
