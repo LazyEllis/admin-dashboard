@@ -76,6 +76,7 @@ hr {
 .card:hover {
   background-color: #7e43f2;
   color: #3ae9d4;
+  transform: translate3D(0, -1px, 0) scale(1.03);
 }
 .card:hover .icon {
   filter: invert(77%) sepia(59%) saturate(498%) hue-rotate(113deg) brightness(94%) contrast(94%);
